@@ -314,9 +314,13 @@
 				<type caption="Зачисление средств" oper="+">popolnilsya</type>
 				<type caption="Списание средств" oper="-">umenshilsya</type>
 				<type caption="Проведена транзакция" oper="-">Provedena tranzakcija</type>
+				<type caption="Проведено по счёту" oper="-">Provedeno po schety</type>
+				<type caption="Плановое списание" oper="-">Planovoe spisanie</type>				
 			</types_operation>
 			<!-- http://regexr.com?322p1 07.08.2012 -->
+                  	<pattern comment="Плановое списание" action="INSERT_TO_JURNAL" groups="TYPE_OPERATION,SUMMA,VALUT_OPERATION,CARD_NUMBER,DATE,BALANS,VAULT_ACCOUNT"><![CDATA[(.*)[\:]([\d,.]+)\s(.{3}).*[\*](\d+)\s.*[\s]([\d\/]+)[\:].([\d,.]+)\s(.{3}).*]]></pattern>
 			<pattern comment="Пополнение - счет" action="INSERT_TO_JURNAL" groups="KEY,TYPE_OPERATION,SUMMA,VALUT_OPERATION,BALANS"><![CDATA[.*?\d(\d{4})\s(.*?)\+([\d\.,]+)(.{3}).*\+([\d\.,]+).*]]></pattern>
+			<pattern comment="Транзакция - счет" action="INSERT_TO_JURNAL" groups="TYPE_OPERATION,SUMMA,VALUT_OPERATION,CARD_NUMBER,DATE,BALANS,VALUT_ACCOUNT"><![CDATA[(.*)\s[\d\/]+[\:][\s\-].[\s\:]([\d,.]+).(.{3}).*[\*](\d+).*\s([\d\/]+)[\:]\s([\d,.]+).(.{3}).*]]></pattern>
 			<pattern comment="Движение средств - списание с местом" action="INSERT_TO_JURNAL" groups="CARD_NUMBER,TYPE_OPERATION,SUMMA,VALUT_OPERATION,DATE,MESTO,BALANS,VALUT_ACCOUNT"><![CDATA[.*\*(\d+);\s(.*):([\d,]+)(.{3});.*:([\d\/]+);.*:\s(.*);.*:\s([\d,]+)(.{3}).*]]></pattern>
 			<pattern comment="Движение средств - списание с местом new 28.07.14" action="INSERT_TO_JURNAL" groups="CARD_NUMBER,TYPE_OPERATION,MESTO,SUMMA,VALUT_OPERATION,DATE,BALANS,VALUT_ACCOUNT"><![CDATA[.*\*(\d+);\s(.*?):(.*?);\sSumma:(\d[\d\s\.]+)\s(\w{3})\s+Data:([\d\/]+);.*:\s(\d[\d\s\.]+)\s(\w{3}).*]]></pattern>
 			<pattern comment="Движение средств" action="INSERT_TO_JURNAL" groups="CARD_NUMBER,TYPE_OPERATION,DATE,SUMMA,VALUT_OPERATION,BALANS,VALUT_ACCOUNT"><![CDATA[.*\*(\d+)\s(.*)\s([\d\/]+)\s.*:([\d,]+)(.{3}).*:\s([\d,]+)(.{3}).*]]></pattern>
